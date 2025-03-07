@@ -2,7 +2,7 @@
 
 ## Overview
 This project aims to benchmark and compare the performance of different machine 
-learning algorithms using Intel's scikit-learn-intellex and NVIDIA's CUDA-accelerated XGBoost across various datasets. The goal is to determine which optimization provides better performance for specific machine learning algorithms
+learning algorithms using Intel's scikit-learn-intellex and NVIDIA's Cupy-accelerated across various datasets and learning algorithms. The goal is to determine which optimization provides better performance for specific machine learning algorithms
 for my college research.
 ### Setup
 **Install the required dependencies**:

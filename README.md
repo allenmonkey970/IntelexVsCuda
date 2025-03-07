@@ -2,7 +2,7 @@
 
 ## Overview
 This project aims to benchmark and compare the performance of different machine 
-learning models using Intel's scikit-learn-intellex and NVIDIA's CUDA-accelerated XGBoost across various datasets. The goal is to determine which optimization provides better performance for specific machine learning tasks
+learning algorithms using Intel's scikit-learn-intellex and NVIDIA's Cupy-accelerated across various datasets and learning algorithms. The goal is to determine which optimization provides better performance for specific machine learning algorithms
 for my college research.
 ### Setup
 **Install the required dependencies**:
@@ -25,4 +25,5 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 
 ## Acknowledgments
 Maree, A. (2025). Student Performance Prediction [Dataset]. In Kaggle (Version V2). Keggal. https://www.kaggle.com/datasets/amrmaree/student-performance-prediction
+
 @inproceedings{mirsky2018kitsune, title={Kitsune: An Ensemble of Autoencoders for Online Network Intrusion Detection}, author={Mirsky, Yisroel and Doitshman, Tomer and Elovici, Yuval and Shabtai, Asaf}, booktitle={The Network and Distributed System Security Symposium (NDSS) 2018}, year={2018} }

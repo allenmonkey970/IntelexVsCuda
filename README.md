@@ -34,3 +34,5 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 Maree, A. (2025). Student Performance Prediction [Dataset]. In Kaggle (Version V2). Keggal. https://www.kaggle.com/datasets/amrmaree/student-performance-prediction
 
 @inproceedings{mirsky2018kitsune, title={Kitsune: An Ensemble of Autoencoders for Online Network Intrusion Detection}, author={Mirsky, Yisroel and Doitshman, Tomer and Elovici, Yuval and Shabtai, Asaf}, booktitle={The Network and Distributed System Security Symposium (NDSS) 2018}, year={2018} }
+
+amjadkhaliliah. “Money Laundering ML Model.” Kaggle.com, Kaggle, 23 Feb. 2025, www.kaggle.com/code/amjadkhaliliah/money-laundering-ml-model. Accessed 8 Mar. 2025.

@@ -14,6 +14,13 @@ for my college research.
    ```
 This should install on dependencies if not install pandas, warning, and numpy.
 
+# hardware used:
+
+- **CPU**: Intel Core i5 (12th Gen)  
+- **GPU**: NVIDIA GeForce GTX 1660 Super  
+- **Storage**: SSD  
+- **RAM**: 32 GB  
+
 ## Results
 Will add later
 

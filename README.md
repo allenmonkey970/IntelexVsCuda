@@ -35,4 +35,4 @@ Maree, A. (2025). Student Performance Prediction [Dataset]. In Kaggle (Version V
 
 @inproceedings{mirsky2018kitsune, title={Kitsune: An Ensemble of Autoencoders for Online Network Intrusion Detection}, author={Mirsky, Yisroel and Doitshman, Tomer and Elovici, Yuval and Shabtai, Asaf}, booktitle={The Network and Distributed System Security Symposium (NDSS) 2018}, year={2018} }
 
-amjadkhaliliah. “Money Laundering ML Model.” Kaggle.com, Kaggle, 23 Feb. 2025, www.kaggle.com/code/amjadkhaliliah/money-laundering-ml-model. Accessed 8 Mar. 2025.
+Altman, Erik. “IBM Transactions for Anti Money Laundering (AML).” Www.kaggle.com, www.kaggle.com/datasets/ealtman2019/ibm-transactions-for-anti-money-laundering-aml. Accessed 9 Mar. 2025.

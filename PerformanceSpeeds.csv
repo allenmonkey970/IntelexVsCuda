@@ -8,12 +8,12 @@ active_Wiretap,Logistic Regression,Intelex,118000
 active_Wiretap,Random Forest Classifier,BareBones,221000
 active_Wiretap,Random Forest Classifier,CuPY,121000
 active_Wiretap,Random Forest Classifier,Intelex,126000
-student_performance,Logistic Regression,BareBones,1000418
+student_performance,Logistic Regression,BareBones,1418
 student_performance,Logistic Regression,CuPY,464
 student_performance,Logistic Regression,Intelex,91
-student_performance,Random Forest Classifier,BareBones,1000663
+student_performance,Random Forest Classifier,BareBones,1663
 student_performance,Random Forest Classifier,CuPY,605
 student_performance,Random Forest Classifier,Intelex,310
-student_performance,XGBoost,BareBones,1000727
+student_performance,XGBoost,BareBones,1727
 student_performance,XGBoost,CuPY,667
 student_performance,XGBoost,Intelex,554

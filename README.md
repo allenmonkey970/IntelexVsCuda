@@ -35,4 +35,4 @@ Maree, A. (2025). Student Performance Prediction [Dataset]. In Kaggle (Version V
 
 @inproceedings{mirsky2018kitsune, title={Kitsune: An Ensemble of Autoencoders for Online Network Intrusion Detection}, author={Mirsky, Yisroel and Doitshman, Tomer and Elovici, Yuval and Shabtai, Asaf}, booktitle={The Network and Distributed System Security Symposium (NDSS) 2018}, year={2018} }
 
-Altman, Erik. “IBM Transactions for Anti Money Laundering (AML).” Www.kaggle.com, www.kaggle.com/datasets/ealtman2019/ibm-transactions-for-anti-money-laundering-aml. Accessed 9 Mar. 2025.
+Diabetes Dataset (Version V1). (n.d.). [Dataset]. kaggle. https://www.kaggle.com/datasets/asinow/diabetes-dataset/data

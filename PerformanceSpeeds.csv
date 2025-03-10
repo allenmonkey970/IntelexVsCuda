@@ -1,18 +1,19 @@
-Dataset,Algorithm,Implementation,Speed
-active_Wiretap,XGBoost,BareBones,1m32s
+Dataset,Algorithm,Implementation,Speed(milliseconds)
+active_Wiretap,XGBoost,BareBones,92000
 active_Wiretap,XGBoost,CuPY,N/A
-active_Wiretap,XGBoost,Intelex,1m27s
-active_Wiretap,Logistic Regression,BareBones,2m07s
-active_Wiretap,Logistic Regression,CuPY,1m57s
-active_Wiretap,Logistic Regression,Intelex,1m58s
-active_Wiretap,Random Forest Classifier,BareBones,3m41s
-active_Wiretap,Random Forest Classifier,CuPY,2m01s
-student_performance,Logistic Regression,BareBones,1s418ms
-student_performance,Logistic Regression,CuPY,464ms
-student_performance,Logistic Regression,Intelex,91ms
-student_performance,Random Forest Classifier,BareBones,1s663ms
-student_performance,Random Forest Classifier,CuPY,605ms
-student_performance,Random Forest Classifier,Intelex,310ms
-student_performance,XGBoost,BareBones,1s727ms
-student_performance,XGBoost,CuPY,667ms
-student_performance,XGBoost,Intelex,554ms
+active_Wiretap,XGBoost,Intelex,87000
+active_Wiretap,Logistic Regression,BareBones,127000
+active_Wiretap,Logistic Regression,CuPY,117000
+active_Wiretap,Logistic Regression,Intelex,118000
+active_Wiretap,Random Forest Classifier,BareBones,221000
+active_Wiretap,Random Forest Classifier,CuPY,121000
+active_Wiretap,Random Forest Classifier,Intelex,126000
+student_performance,Logistic Regression,BareBones,1000418
+student_performance,Logistic Regression,CuPY,464
+student_performance,Logistic Regression,Intelex,91
+student_performance,Random Forest Classifier,BareBones,1000663
+student_performance,Random Forest Classifier,CuPY,605
+student_performance,Random Forest Classifier,Intelex,310
+student_performance,XGBoost,BareBones,1000727
+student_performance,XGBoost,CuPY,667
+student_performance,XGBoost,Intelex,554

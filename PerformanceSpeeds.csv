@@ -14,9 +14,9 @@ student_performance,XGBoost,Intelex,552
 student_performance,Logistic Regression,BareBones,1451
 student_performance,Logistic Regression,CuPY,506
 student_performance,Logistic Regression,Intelex,410
-student_performance,Random Forest Classifier,BareBones,
-student_performance,Random Forest Classifier,CuPY,
-student_performance,Random Forest Classifier,Intelex,
+student_performance,Random Forest Classifier,BareBones,1675
+student_performance,Random Forest Classifier,CuPY,611
+student_performance,Random Forest Classifier,Intelex,335
 diabetes,XGBoost,BareBones,1664
 diabetes,XGBoost,CuPY,527
 diabetes,XGBoost,Intelex,529
@@ -26,7 +26,6 @@ diabetes,Logistic Regression,Intelex,444
 diabetes,Random Forest Classifier,BareBones,2159
 diabetes,Random Forest Classifier,CuPY,1069
 diabetes,Random Forest Classifier,Intelex,926
-
 loan prediction,XGBoost,BareBones,5482
 loan prediction,XGBoost,CuPY,3699
 loan prediction,XGBoost,Intelex,4222

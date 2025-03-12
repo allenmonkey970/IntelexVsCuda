@@ -8,27 +8,28 @@ active_Wiretap,Logistic Regression,Intelex,118000
 active_Wiretap,Random Forest Classifier,BareBones,221000
 active_Wiretap,Random Forest Classifier,CuPY,121000
 active_Wiretap,Random Forest Classifier,Intelex,126000
-student_performance,Logistic Regression,BareBones,1418
-student_performance,Logistic Regression,CuPY,464
-student_performance,Logistic Regression,Intelex,91
-student_performance,Random Forest Classifier,BareBones,1663
-student_performance,Random Forest Classifier,CuPY,605
-student_performance,Random Forest Classifier,Intelex,310
-student_performance,XGBoost,BareBones,1727
-student_performance,XGBoost,CuPY,667
-student_performance,XGBoost,Intelex,554
-diabetes,Random Forest Classifier,BareBones,2230
-diabetes,Random Forest Classifier,CuPY,1125
-diabetes,Random Forest Classifier,Intelex,986
-diabetes,XGBoost,BareBones,1734
-diabetes,XGBoost,CuPY,459
-diabetes,XGBoost,Intelex,526
-diabetes,Logistic Regression,BareBones,1472
-diabetes,Logistic Regression,CuPY,483
-diabetes,Logistic Regression,Intelex,421
-loan prediction,XGBoost,BareBones,5533
-loan prediction,XGBoost,CuPY,3223
-loan prediction,XGBoost,Intelex,4760
+student_performance,XGBoost,BareBones,1675
+student_performance,XGBoost,CuPY,502
+student_performance,XGBoost,Intelex,552
+student_performance,Logistic Regression,BareBones,1451
+student_performance,Logistic Regression,CuPY,506
+student_performance,Logistic Regression,Intelex,410
+student_performance,Random Forest Classifier,BareBones,
+student_performance,Random Forest Classifier,CuPY,
+student_performance,Random Forest Classifier,Intelex,
+diabetes,XGBoost,BareBones,1664
+diabetes,XGBoost,CuPY,527
+diabetes,XGBoost,Intelex,529
+diabetes,Logistic Regression,BareBones,1517
+diabetes,Logistic Regression,CuPY,456
+diabetes,Logistic Regression,Intelex,444
+diabetes,Random Forest Classifier,BareBones,2159
+diabetes,Random Forest Classifier,CuPY,1069
+diabetes,Random Forest Classifier,Intelex,926
+
+loan prediction,XGBoost,BareBones,5482
+loan prediction,XGBoost,CuPY,3699
+loan prediction,XGBoost,Intelex,4222
 loan prediction,Logistic Regression,BareBones,10965
 loan prediction,Logistic Regression,CuPY,38739
 loan prediction,Logistic Regression,Intelex,9684

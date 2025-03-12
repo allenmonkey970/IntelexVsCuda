@@ -26,3 +26,12 @@ diabetes,XGBoost,Intelex,526
 diabetes,Logistic Regression,BareBones,1472
 diabetes,Logistic Regression,CuPY,483
 diabetes,Logistic Regression,Intelex,421
+loan prediction,XGBoost,BareBones,5533
+loan prediction,XGBoost,CuPY,3223
+loan prediction,XGBoost,Intelex,4760
+loan prediction,Logistic Regression,BareBones,10965
+loan prediction,Logistic Regression,CuPY,38739
+loan prediction,Logistic Regression,Intelex,9684
+loan prediction,Random Forest Classifier,BareBones,156000
+loan prediction,Random Forest Classifier,CuPY,N/A
+loan prediction,Random Forest Classifier,Intelex,154000

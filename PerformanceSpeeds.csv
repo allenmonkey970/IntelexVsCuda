@@ -35,3 +35,12 @@ loan prediction,Logistic Regression,Intelex,9684
 loan prediction,Random Forest Classifier,BareBones,156000
 loan prediction,Random Forest Classifier,CuPY,N/A
 loan prediction,Random Forest Classifier,Intelex,154000
+cyberbully detection,XGBoost,BareBones,13677
+cyberbully detection,XGBoost,CuPY,1752
+cyberbully detection,XGBoost,Intelex,13230
+cyberbully detection,Logistic Regression,BareBones,2571
+cyberbully detection,Logistic Regression,CuPY,1603
+cyberbully detection,Logistic Regression,Intelex,1493
+cyberbully detection,Random Forest Classifier,BareBones,25432
+cyberbully detection,Random Forest Classifier,CuPY,23854
+cyberbully detection,Random Forest Classifier,Intelex,23764

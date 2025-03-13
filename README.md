@@ -4,6 +4,10 @@
 This project aims to benchmark and compare the performance of different machine 
 learning algorithms using Intel's scikit-learn-intellex and NVIDIA's Cupy-accelerated across various datasets and learning algorithms. The goal is to determine which optimization provides better performance for specific machine learning algorithms
 for my college research.
+
+- Intelex is a performance library for scikit Learn. It uses low-level optimization and multithreading to speed up performance. 
+- CuPy is another performance library however, it pushes all array computations to the GPU to parrel process it. 
+
 ### Setup
 **Install the required dependencies**:
    ```bash

@@ -22,7 +22,38 @@ This should install on dependencies if not install pandas, warning, and numpy.
 - **RAM**: 32 GB  
 
 ## Results
-Will add later
+
+### Wiretap Dataset (115 numerical columns)
+- **XGBoost:** Intelex performed best (87,000 ms; CuPY data unavailable).
+- **Logistic Regression:** CuPY was the fastest (117,000 ms).
+- **Random Forest Classifier:** CuPY outperformed others (121,000 ms).
+
+### Student Performance Dataset (10 mainly numerical columns)
+- **XGBoost:** CuPY was the fastest (502 ms).
+- **Logistic Regression:** Intelex was the fastest (410 ms).
+- **Random Forest Classifier:** Intelex excelled (335 ms).
+
+### Diabetes Dataset (17 numerical columns)
+- **XGBoost:** CuPY led (527 ms).
+- **Logistic Regression:** Intelex performed best (444 ms).
+- **Random Forest Classifier:** Intelex was the fastest (926 ms).
+
+### Loan Prediction Dataset (13 mainly categorical columns)
+- **XGBoost:** CuPY outperformed others (3,699 ms).
+- **Logistic Regression:** Intelex was the fastest (9,684 ms; CuPY was significantly slower).
+- **Random Forest Classifier:** Intelex was the fastest (154,000 ms; CuPY data unavailable).
+
+### Cyberbully Detection Dataset (7 text and categorical columns)
+- **XGBoost:** CuPY was the fastest (1,752 ms).
+- **Logistic Regression:** Intelex performed best (1,493 ms).
+- **Random Forest Classifier:** Intelex slightly outpaced others (23,764 ms).
+
+---
+
+### Summary of Algorithm Trends
+- **XGBoost:** CuPY is consistently the best for most datasets.
+- **Logistic Regression:** Intelex consistently leads, offering the best speed across datasets.
+- **Random Forest Classifier:** Intelex is the fastest for most datasets.
 
 ## Contributing
 Feel free to fork this repository, create a new branch, and submit a pull request with your enhancements. Please make sure to add test cases for any new features or changes.

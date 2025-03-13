@@ -24,7 +24,7 @@ This should install on dependencies if not install pandas, warning, and numpy.
 ## Results
 
 ## Contributing
-Feel free to fork this repository, create a new branch, and submit a pull request with your enhancements. Please make sure to add test cases for any new features or changes.
+Feel free to fork this repository, create a new branch, and submit a pull request with your changes. Please make sure to document it well.
 
 ## License
 This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.

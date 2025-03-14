@@ -15,7 +15,6 @@ for my college research.
    pip install cupy-cuda
    pip install xgboost
    pip install scikit-learn-intelex
-   pip install tensorflow
    ```
 This should install on dependencies if not install pandas, warning, and numpy.
 

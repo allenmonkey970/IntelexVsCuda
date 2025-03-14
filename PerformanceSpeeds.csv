@@ -1,6 +1,6 @@
 Dataset,Algorithm,Implementation,Speed(milliseconds)
 active_Wiretap,XGBoost,BareBones,92000
-active_Wiretap,XGBoost,CuPY,N/A
+active_Wiretap,XGBoost,CuPY,63200
 active_Wiretap,XGBoost,Intelex,87000
 active_Wiretap,Logistic Regression,BareBones,127000
 active_Wiretap,Logistic Regression,CuPY,117000

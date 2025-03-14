@@ -8,6 +8,9 @@ active_Wiretap,Logistic Regression,Intelex,118000
 active_Wiretap,Random Forest Classifier,BareBones,221000
 active_Wiretap,Random Forest Classifier,CuPY,121000
 active_Wiretap,Random Forest Classifier,Intelex,126000
+active_Wiretap,AdaBoost,BareBones,603000
+active_Wiretap,AdaBoost,CuPY,603300
+active_Wiretap,AdaBoost,Intelex,647000
 student_performance,XGBoost,BareBones,1675
 student_performance,XGBoost,CuPY,502
 student_performance,XGBoost,Intelex,552
@@ -17,6 +20,9 @@ student_performance,Logistic Regression,Intelex,410
 student_performance,Random Forest Classifier,BareBones,1675
 student_performance,Random Forest Classifier,CuPY,611
 student_performance,Random Forest Classifier,Intelex,335
+student_performance,AdaBoost,BareBones,2125
+student_performance,AdaBoost,CuPY,810
+student_performance,AdaBoost,Intelex,461
 diabetes,XGBoost,BareBones,1664
 diabetes,XGBoost,CuPY,527
 diabetes,XGBoost,Intelex,529
@@ -26,6 +32,9 @@ diabetes,Logistic Regression,Intelex,444
 diabetes,Random Forest Classifier,BareBones,2159
 diabetes,Random Forest Classifier,CuPY,1069
 diabetes,Random Forest Classifier,Intelex,926
+diabetes,AdaBoost,BareBones,2215
+diabetes,AdaBoost,CuPY,1272
+diabetes,AdaBoost,Intelex,1097
 loan prediction,XGBoost,BareBones,5482
 loan prediction,XGBoost,CuPY,3699
 loan prediction,XGBoost,Intelex,4222
@@ -35,6 +44,9 @@ loan prediction,Logistic Regression,Intelex,9684
 loan prediction,Random Forest Classifier,BareBones,156000
 loan prediction,Random Forest Classifier,CuPY,2458
 loan prediction,Random Forest Classifier,Intelex,154000
+loan prediction,AdaBoost,BareBones,8547
+loan prediction,AdaBoost,CuPY,8946
+loan prediction,AdaBoost,Intelex,7841
 cyberbully detection,XGBoost,BareBones,13677
 cyberbully detection,XGBoost,CuPY,1752
 cyberbully detection,XGBoost,Intelex,13230
@@ -44,3 +56,6 @@ cyberbully detection,Logistic Regression,Intelex,1493
 cyberbully detection,Random Forest Classifier,BareBones,25432
 cyberbully detection,Random Forest Classifier,CuPY,23854
 cyberbully detection,Random Forest Classifier,Intelex,23764
+cyberbully detection,AdaBoost,BareBones,4806
+cyberbully detection,AdaBoost,CuPY,63100
+cyberbully detection,AdaBoost,Intelex,3525

@@ -11,10 +11,10 @@ for my college research.
 ### Setup
 **Install the required dependencies**:
    ```bash
-   conda install scikit-learn
-   conda install -c conda-forge cupy
-   conda install -c conda-forge py-xgboost-gpu
-   conda install scikit-learn-intelex 
+   pip install scikit-learn
+   pip install cupy-cuda
+   pip install xgboost
+   pip install scikit-learn-intelex
    ```
 This should install on dependencies if not install pandas, warning, and numpy.
 

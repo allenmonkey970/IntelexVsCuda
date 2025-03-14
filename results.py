@@ -47,5 +47,5 @@ for dataset in datasets:
     plt.ylim(0, custom_ticks[-1])
     plt.legend(title="Implementation", fontsize=10)
     plt.tight_layout()
-    plt.savefig(f"{dataset}_speeds.png")  # Save the chart as a PNG file
+    plt.savefig(f"results/{dataset}_speeds.png")  # Save the chart as a PNG file
     plt.close()

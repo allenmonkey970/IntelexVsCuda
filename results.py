@@ -40,7 +40,7 @@ for dataset in datasets:
     custom_ticks, custom_labels = dynamic_y_axis_ticks(speeds_all)
 
     plt.xlabel("Algorithm", fontsize=12)
-    plt.ylabel("Speed", fontsize=12)
+    plt.ylabel("Time", fontsize=12)
     plt.xticks(np.arange(len(algorithms)) + (0.2 * (len(implementations) - 1) / 2),
                algorithms, rotation=45, fontsize=10)
     plt.yticks(custom_ticks, custom_labels)

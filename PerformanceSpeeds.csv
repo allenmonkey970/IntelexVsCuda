@@ -1,61 +1,61 @@
 Dataset,Algorithm,Implementation,Speed(milliseconds)
-active_Wiretap,XGBoost,BareBones,92000
-active_Wiretap,XGBoost,CuPY,63200
-active_Wiretap,XGBoost,Intelex,87000
-active_Wiretap,Logistic Regression,BareBones,127000
-active_Wiretap,Logistic Regression,CuPY,117000
-active_Wiretap,Logistic Regression,Intelex,118000
-active_Wiretap,Random Forest Classifier,BareBones,221000
-active_Wiretap,Random Forest Classifier,CuPY,121000
-active_Wiretap,Random Forest Classifier,Intelex,126000
-active_Wiretap,AdaBoost,BareBones,603000
-active_Wiretap,AdaBoost,CuPY,603300
-active_Wiretap,AdaBoost,Intelex,647000
-student_performance,XGBoost,BareBones,1675
-student_performance,XGBoost,CuPY,502
-student_performance,XGBoost,Intelex,552
-student_performance,Logistic Regression,BareBones,1451
-student_performance,Logistic Regression,CuPY,506
-student_performance,Logistic Regression,Intelex,410
-student_performance,Random Forest Classifier,BareBones,1675
-student_performance,Random Forest Classifier,CuPY,611
-student_performance,Random Forest Classifier,Intelex,335
-student_performance,AdaBoost,BareBones,2125
-student_performance,AdaBoost,CuPY,810
-student_performance,AdaBoost,Intelex,461
-diabetes,XGBoost,BareBones,1664
-diabetes,XGBoost,CuPY,527
-diabetes,XGBoost,Intelex,529
-diabetes,Logistic Regression,BareBones,1517
-diabetes,Logistic Regression,CuPY,456
-diabetes,Logistic Regression,Intelex,444
-diabetes,Random Forest Classifier,BareBones,2159
-diabetes,Random Forest Classifier,CuPY,1069
-diabetes,Random Forest Classifier,Intelex,926
-diabetes,AdaBoost,BareBones,2215
-diabetes,AdaBoost,CuPY,1272
-diabetes,AdaBoost,Intelex,1097
-loan prediction,XGBoost,BareBones,5482
-loan prediction,XGBoost,CuPY,3699
-loan prediction,XGBoost,Intelex,4222
-loan prediction,Logistic Regression,BareBones,10965
-loan prediction,Logistic Regression,CuPY,38739
-loan prediction,Logistic Regression,Intelex,9684
-loan prediction,Random Forest Classifier,BareBones,156000
-loan prediction,Random Forest Classifier,CuPY,2458
-loan prediction,Random Forest Classifier,Intelex,154000
-loan prediction,AdaBoost,BareBones,8547
-loan prediction,AdaBoost,CuPY,8946
-loan prediction,AdaBoost,Intelex,7841
-cyberbully detection,XGBoost,BareBones,13677
-cyberbully detection,XGBoost,CuPY,1752
-cyberbully detection,XGBoost,Intelex,13230
-cyberbully detection,Logistic Regression,BareBones,2571
-cyberbully detection,Logistic Regression,CuPY,1603
-cyberbully detection,Logistic Regression,Intelex,1493
-cyberbully detection,Random Forest Classifier,BareBones,25432
-cyberbully detection,Random Forest Classifier,CuPY,23854
-cyberbully detection,Random Forest Classifier,Intelex,23764
-cyberbully detection,AdaBoost,BareBones,4806
-cyberbully detection,AdaBoost,CuPY,63100
-cyberbully detection,AdaBoost,Intelex,3525
+active_Wiretap,XGBoost,BareBones,88000
+active_Wiretap,XGBoost,CuPY,90000
+active_Wiretap,XGBoost,Intelex,86000
+active_Wiretap,Logistic Regression,BareBones,113000
+active_Wiretap,Logistic Regression,CuPY,111000
+active_Wiretap,Logistic Regression,Intelex,116000
+active_Wiretap,Random Forest Classifier,BareBones,218000
+active_Wiretap,Random Forest Classifier,CuPY,227000
+active_Wiretap,Random Forest Classifier,Intelex,219000
+active_Wiretap,AdaBoost,BareBones,622000
+active_Wiretap,AdaBoost,CuPY,623000
+active_Wiretap,AdaBoost,Intelex,619000
+student_performance,XGBoost,BareBones,270
+student_performance,XGBoost,CuPY,159
+student_performance,XGBoost,Intelex,112
+student_performance,Logistic Regression,BareBones,50
+student_performance,Logistic Regression,CuPY,152
+student_performance,Logistic Regression,Intelex,46
+student_performance,Random Forest Classifier,BareBones,163
+student_performance,Random Forest Classifier,CuPY,275
+student_performance,Random Forest Classifier,Intelex,167
+student_performance,AdaBoost,BareBones,29
+student_performance,AdaBoost,CuPY,135
+student_performance,AdaBoost,Intelex,25
+diabetes,XGBoost,BareBones,271
+diabetes,XGBoost,CuPY,135
+diabetes,XGBoost,Intelex,77
+diabetes,Logistic Regression,BareBones,62
+diabetes,Logistic Regression,CuPY,118
+diabetes,Logistic Regression,Intelex,61
+diabetes,Random Forest Classifier,BareBones,673
+diabetes,Random Forest Classifier,CuPY,720
+diabetes,Random Forest Classifier,Intelex,665
+diabetes,AdaBoost,BareBones,795
+diabetes,AdaBoost,CuPY,888
+diabetes,AdaBoost,Intelex,769
+loan prediction,XGBoost,BareBones,4244
+loan prediction,XGBoost,CuPY,3572
+loan prediction,XGBoost,Intelex,3969
+loan prediction,Logistic Regression,BareBones,9822
+loan prediction,Logistic Regression,CuPY,37521
+loan prediction,Logistic Regression,Intelex,9941
+loan prediction,Random Forest Classifier,BareBones,147000
+loan prediction,Random Forest Classifier,CuPY,302000
+loan prediction,Random Forest Classifier,Intelex,155000
+loan prediction,AdaBoost,BareBones,7044
+loan prediction,AdaBoost,CuPY,8255
+loan prediction,AdaBoost,Intelex,7378
+cyberbully detection,XGBoost,BareBones,13300
+cyberbully detection,XGBoost,CuPY,1371
+cyberbully detection,XGBoost,Intelex,13283
+cyberbully detection,Logistic Regression,BareBones,1157
+cyberbully detection,Logistic Regression,CuPY,1357
+cyberbully detection,Logistic Regression,Intelex,1179
+cyberbully detection,Random Forest Classifier,BareBones,22993
+cyberbully detection,Random Forest Classifier,CuPY,23252
+cyberbully detection,Random Forest Classifier,Intelex,23306
+cyberbully detection,AdaBoost,BareBones,3322
+cyberbully detection,AdaBoost,CuPY,91000
+cyberbully detection,AdaBoost,Intelex,3317

@@ -11,6 +11,9 @@ active_Wiretap,Random Forest Classifier,Intelex,219000
 active_Wiretap,AdaBoost,BareBones,622000
 active_Wiretap,AdaBoost,CuPY,623000
 active_Wiretap,AdaBoost,Intelex,619000
+active_Wiretap,Multilayer Perceptron,BareBones,521000
+active_Wiretap,Multilayer Perceptron,CuPY,284000
+active_Wiretap,Multilayer Perceptron,Intelex,522000
 student_performance,XGBoost,BareBones,270
 student_performance,XGBoost,CuPY,159
 student_performance,XGBoost,Intelex,112
@@ -23,6 +26,9 @@ student_performance,Random Forest Classifier,Intelex,167
 student_performance,AdaBoost,BareBones,29
 student_performance,AdaBoost,CuPY,135
 student_performance,AdaBoost,Intelex,25
+student_performance,Multilayer Perceptron,BareBones,83
+student_performance,Multilayer Perceptron,CuPY,186
+student_performance,Multilayer Perceptron,Intelex,82
 diabetes,XGBoost,BareBones,271
 diabetes,XGBoost,CuPY,135
 diabetes,XGBoost,Intelex,77
@@ -35,6 +41,9 @@ diabetes,Random Forest Classifier,Intelex,665
 diabetes,AdaBoost,BareBones,795
 diabetes,AdaBoost,CuPY,888
 diabetes,AdaBoost,Intelex,769
+diabetes,Multilayer Perceptron,BareBones,1206
+diabetes,Multilayer Perceptron,CuPY,1381
+diabetes,Multilayer Perceptron,Intelex,1246
 loan prediction,XGBoost,BareBones,4244
 loan prediction,XGBoost,CuPY,3572
 loan prediction,XGBoost,Intelex,3969
@@ -47,6 +56,9 @@ loan prediction,Random Forest Classifier,Intelex,155000
 loan prediction,AdaBoost,BareBones,7044
 loan prediction,AdaBoost,CuPY,8255
 loan prediction,AdaBoost,Intelex,7378
+loan prediction,Multilayer Perceptron,BareBones,240599
+loan prediction,Multilayer Perceptron,CuPY,270123
+loan prediction,Multilayer Perceptron,Intelex,240876
 cyberbully detection,XGBoost,BareBones,13300
 cyberbully detection,XGBoost,CuPY,1371
 cyberbully detection,XGBoost,Intelex,13283
@@ -59,3 +71,6 @@ cyberbully detection,Random Forest Classifier,Intelex,23306
 cyberbully detection,AdaBoost,BareBones,3322
 cyberbully detection,AdaBoost,CuPY,91000
 cyberbully detection,AdaBoost,Intelex,3317
+cyberbully detection,Multilayer Perceptron,BareBones,10762
+cyberbully detection,Multilayer Perceptron,CuPY,8500
+cyberbully detection,Multilayer Perceptron,Intelex,11072

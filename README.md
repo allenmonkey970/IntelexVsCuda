@@ -16,7 +16,7 @@ for my college research.
    pip install xgboost
    pip install scikit-learn-intelex
    ```
-This should install on dependencies if not install pandas, warning, and numpy.
+This should install all of the dependencies if not install Pandas, Warning, MatPlotLib, and NumPY.
 
 # Hardware used:
 
@@ -45,7 +45,7 @@ Here's a summary of the trends in the data:
 #### 1. **Intelex**
    - Tends to have the **fastest execution times** across most datasets and algorithms.
    - Examples of notable performance:
-     - **Student Performance Dataset**: Shows clear dominance with algorithms like XGBoost (112ms) and Logistic Regression (46ms).
+     - **Student Performance Dataset**: Shows clear better performance with algorithms like XGBoost (112ms) and Logistic Regression (46ms).
      - **Diabetes Dataset**: Maintains the fastest speeds consistently, e.g., Logistic Regression at 61ms and XGBoost at 77ms.
      - **Cyberbullying Detection Dataset**: Performs competitively even in text-heavy datasets, e.g., Logistic Regression (1179ms).
 
@@ -63,9 +63,9 @@ Here's a summary of the trends in the data:
      - **Cyberbullying Dataset**: Slower for Logistic Regression (1157ms) and XGBoost (13,300ms).
 
 #### General Observations
-- **Intelex is ideal** for achieving consistent speed across various algorithms and datasets, particularly for numerical data.
-- **CuPY performs well on larger datasets** and benefits from GPU-specific acceleration, though it lags behind Intelex in smaller datasets.
-- **BareBones is less optimized** and often lags significantly, especially with computationally intense algorithms like MLP or Random Forest.
+- **Intelex is ideal** for achieving consistent speed across various algorithms and datasets, particularly for numerical data and smaller datasets.
+- **CuPY performs well on larger datasets** and benefits from GPU-specific acceleration, though it lags behind Intelex in smaller datasets likely from the conversions to NumPy arrays.
+- **BareBones does the worst** and often lags significantly, especially with computationally intense algorithms like MLP or Random Forest.
 
   
 ## Contributing

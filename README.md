@@ -24,7 +24,6 @@ This should install all of the dependencies if not install Pandas, Warning, MatP
 - **GPU**: NVIDIA GeForce GTX 1660 Super  
 - **Storage**: SSD  
 - **RAM**: 32 GB  
-Here's a summary of the trends in the data:
 
 ### Dataset Overview:
 1. **Wiretap**: Largest dataset (7GB) with 115 numerical columns.

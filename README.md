@@ -61,7 +61,7 @@ This should install all of the dependencies if not install Pandas, Warning, MatP
      - **Active_Wiretap Dataset**: Experiences significant lag with MLP (521,000ms) and Random Forest Classifier (218,000ms).
      - **Cyberbullying Dataset**: Slower for Logistic Regression (1157ms) and XGBoost (13,300ms).
 
-#### General Observations
+#### General Results
 - **Intelex is ideal** for achieving consistent speed across various algorithms and datasets, particularly for numerical data and smaller datasets.
 - **CuPY performs well on larger datasets** and benefits from GPU-specific acceleration, though it lags behind Intelex in smaller datasets likely from the conversions to NumPy arrays.
 - **BareBones does the worst** and often lags significantly, especially with computationally intense algorithms like MLP or Random Forest.

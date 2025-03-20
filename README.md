@@ -33,38 +33,6 @@ This should install all of the dependencies if not install Pandas, Warning, MatP
 5. **Cyberbullying Detection**: Medium size (3.67MB) with 7 columns, text/categorical.
 
 ## Results
-<img src="https://github.com/allenmonkey970/IntelexVsCuda/blob/master/results/active_Wiretap_speeds.png" width=70% height=70%>
-<img src="https://github.com/allenmonkey970/IntelexVsCuda/blob/master/results/cyberbully%20detection_speeds.png" width=70% height=70%>
-<img src="https://github.com/allenmonkey970/IntelexVsCuda/blob/master/results/diabetes_speeds.png" width=70% height=70%>
-<img src="https://github.com/allenmonkey970/IntelexVsCuda/blob/master/results/loan%20prediction_speeds.png" width=70% height=70%>
-<img src="https://github.com/allenmonkey970/IntelexVsCuda/blob/master/results/student_performance_speeds.png" width=70% height=70%>
-
-
-### Trends in the Data
-#### 1. **Intelex**
-   - Tends to have the **fastest execution times** across most datasets and algorithms.
-   - Examples of notable performance:
-     - **Student Performance Dataset**: Shows clear better performance with algorithms like XGBoost (112ms) and Logistic Regression (46ms).
-     - **Diabetes Dataset**: Maintains the fastest speeds consistently, e.g., Logistic Regression at 61ms and XGBoost at 77ms.
-     - **Cyberbullying Detection Dataset**: Performs competitively even in text-heavy datasets, e.g., Logistic Regression (1179ms).
-
-#### 2. **CuPY**
-   - Often achieves **second-best execution times**.
-   - Examples of performance:
-     - **Student Performance Dataset**: Decent performance in XGBoost (159ms) and Logistic Regression (152ms).
-     - **Loan Prediction Dataset**: Stands out with XGBoost (3572ms) but takes longer for MLP-based approaches.
-   - CuPY is particularly strong with **larger datasets** where GPU acceleration comes into play.
-
-#### 3. **BareBones**
-   - Consistently has the **slowest execution times**, especially for datasets involving larger sizes or text-heavy content.
-   - Examples:
-     - **Active_Wiretap Dataset**: Experiences significant lag with MLP (521,000ms) and Random Forest Classifier (218,000ms).
-     - **Cyberbullying Dataset**: Slower for Logistic Regression (1157ms) and XGBoost (13,300ms).
-
-#### General Results
-- **Intelex is ideal** for achieving consistent speed across various algorithms and datasets, particularly for numerical data and smaller datasets.
-- **CuPY performs well on larger datasets** and benefits from GPU-specific acceleration, though it lags behind Intelex in smaller datasets likely from the conversions to NumPy arrays.
-- **BareBones does the worst** and often lags significantly, especially with computationally intense algorithms like MLP or Random Forest.
 
   
 ## Contributing

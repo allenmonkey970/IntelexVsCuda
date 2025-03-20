@@ -14,6 +14,9 @@ active_Wiretap,AdaBoost,Intelex,619000
 active_Wiretap,Multi-layer Perceptron classifier,BareBones,521000
 active_Wiretap,Multi-layer Perceptron classifier,CuPY,284000
 active_Wiretap,Multi-layer Perceptron classifier,Intelex,522000
+active_Wiretap,LightGBM classifier,BareBones,1040
+active_Wiretap,LightGBM classifier,CuPY,1028
+active_Wiretap,LightGBM classifier,Intelex,1028
 student_performance,XGBoost,BareBones,270
 student_performance,XGBoost,CuPY,159
 student_performance,XGBoost,Intelex,112
@@ -29,6 +32,9 @@ student_performance,AdaBoost,Intelex,25
 student_performance,Multi-layer Perceptron classifier,BareBones,83
 student_performance,Multi-layer Perceptron classifier,CuPY,186
 student_performance,Multi-layer Perceptron classifier,Intelex,82
+student_performance,LightGBM classifier,BareBones,99
+student_performance,LightGBM classifier,CuPY,135
+student_performance,LightGBM classifier,Intelex,33
 diabetes,XGBoost,BareBones,271
 diabetes,XGBoost,CuPY,135
 diabetes,XGBoost,Intelex,77
@@ -44,6 +50,9 @@ diabetes,AdaBoost,Intelex,769
 diabetes,Multi-layer Perceptron classifier,BareBones,1206
 diabetes,Multi-layer Perceptron classifier,CuPY,1381
 diabetes,Multi-layer Perceptron classifier,Intelex,1246
+diabetes,LightGBM classifier,BareBones,144
+diabetes,LightGBM classifier,CuPY,191
+diabetes,LightGBM classifier,Intelex,71
 loan prediction,XGBoost,BareBones,4244
 loan prediction,XGBoost,CuPY,3572
 loan prediction,XGBoost,Intelex,3969
@@ -59,6 +68,9 @@ loan prediction,AdaBoost,Intelex,7378
 loan prediction,Multi-layer Perceptron classifier,BareBones,240599
 loan prediction,Multi-layer Perceptron classifier,CuPY,270123
 loan prediction,Multi-layer Perceptron classifier,Intelex,240876
+loan prediction,LightGBM classifier,BareBones,2491
+loan prediction,LightGBM classifier,CuPY,2255
+loan prediction,LightGBM classifier,Intelex,2327
 cyberbully detection,XGBoost,BareBones,13300
 cyberbully detection,XGBoost,CuPY,1371
 cyberbully detection,XGBoost,Intelex,13283
@@ -74,3 +86,6 @@ cyberbully detection,AdaBoost,Intelex,3317
 cyberbully detection,Multi-layer Perceptron classifier,BareBones,10762
 cyberbully detection,Multi-layer Perceptron classifier,CuPY,8500
 cyberbully detection,Multi-layer Perceptron classifier,Intelex,11072
+cyberbully detection,LightGBM classifier,BareBones,3560
+cyberbully detection,LightGBM classifier,CuPY,3988
+cyberbully detection,LightGBM classifier,Intelex,3253

@@ -18,6 +18,9 @@ for my college research.
    ```
 This should install all of the dependencies if not install Pandas, Warning, MatPlotLib, and NumPY.
 
+# How the experiments were conducted
+<img src="https://github.com/allenmonkey970/IntelexVsCuda/blob/master/results/diagram.png" width=100% height=140%>
+
 # Hardware used:
 
 - **CPU**: Intel Core i5 (12th Gen)  

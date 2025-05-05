@@ -1,22 +1,40 @@
 # IntelexVsCuda
 
+**Benchmarking Intel® Extension for Scikit-learn (scikit-learn-intelex) vs. CuPy-accelerated methods for machine learning workflows.**
+
 ## Overview
-This project aims to benchmark and compare the performance of different machine 
-learning algorithms using Intel's scikit-learn-intellex and NVIDIA's Cupy-accelerated across various datasets and learning algorithms. The goal is to determine which optimization provides better performance for specific machine learning algorithms
-for my college research.
+This project benchmarks and compares the performance of various machine learning algorithms using [Intel's scikit-learn-intelex](https://github.com/intel/scikit-learn-intelex) and [NVIDIA's CuPy](https://cupy.dev/) acceleration across multiple datasets. The goal is to determine which optimization—CPU-based (Intelex) or GPU-based (CuPy)—performs better for specific algorithms and dataset types, as part of a college research project.
 
-- Intelex is a performance library for scikit Learn. It uses low-level optimization and multithreading to speed up performance. 
-- CuPy is another performance library however, it pushes all array computations to the GPU to parrel process it. 
+- **scikit-learn-intelex**: Optimizes select scikit-learn estimators using low-level CPU instructions and multi-threading for faster performance.
+- **CuPy**: GPU array library with a NumPy-compatible API; enables GPU acceleration for array computations.
 
-### Setup
-**Install the required dependencies**:
-   ```bash
-   pip install scikit-learn
-   pip install cupy-cuda
-   pip install xgboost
-   pip install scikit-learn-intelex
-   ```
-This should install all of the dependencies if not install Pandas, Warning, MatPlotLib, and NumPY.
+## Setup
+
+**Install the required dependencies:**
+```bash
+pip install scikit-learn scikit-learn-intelex cupy-cuda xgboost
+```
+If you encounter missing dependencies, also install:
+```bash
+pip install pandas matplotlib numpy
+```
+> _Note: Some datasets or algorithms may require additional libraries (e.g., warnings for suppression)._
+
+## Experiment Methodology
+
+1. **Preprocessing**: Each dataset was cleaned and preprocessed to fit the requirements of the algorithms and libraries.
+2. **Model Selection**: The following ML models were tested:
+    - LightGBM
+    - XGBoost
+    - Logistic Regression
+    - Random Forest
+    - AdaBoost
+    - Multi-Layer Perceptron (MLP)
+3. **Implementation Variants**:
+    - **BareBones**: Standard scikit-learn implementation.
+    - **Intelex**: scikit-learn accelerated with scikit-learn-intelex.
+    - **CuPy**: Data arrays and supported models accelerated with CuPy (where possible).
+4. **Benchmarking**: Each model was run on all datasets, measuring wall-clock training time.
 
 # How the experiments were conducted
 <img src="https://github.com/allenmonkey970/IntelexVsCuda/blob/master/results/diagram.png" width=100% height=140%>
@@ -28,12 +46,14 @@ This should install all of the dependencies if not install Pandas, Warning, MatP
 - **Storage**: SSD  
 - **RAM**: 32 GB  
 
-### Dataset Overview:
-1. **Wiretap**: Largest dataset (7GB) with 115 numerical columns.
-2. **Loan Prediction**: Moderately sized (20MB) with 12 columns, mainly categorical.
-3. **Student Performance**: Smallest dataset (41KB) with 10 columns, mainly numerical.
-4. **Diabetes**: Compact dataset (636KB) with 10 numerical columns.
-5. **Cyberbullying Detection**: Medium size (3.67MB) with 7 columns, text/categorical.
+## Datasets
+| Name                   | Size     | Features      | Notes                    |
+|------------------------|----------|---------------|--------------------------|
+| Wiretap                | 7 GB     | 115 numeric   | Largest                  |
+| Loan Prediction        | 20 MB    | 12 categorical| Small                    |
+| Student Performance    | 41 KB    | 10 numeric    | Smallest                 |
+| Diabetes               | 636 KB   | 10 numeric    | Small                    |
+| Cyberbullying Detection| 3.67 MB  | 7 text/cat.   | Medium, text-heavy       |
 
 ## Results
 <img src="https://github.com/allenmonkey970/IntelexVsCuda/blob/master/results/active_Wiretap_speeds.png" width=70% height=70%>
@@ -42,46 +62,32 @@ This should install all of the dependencies if not install Pandas, Warning, MatP
 <img src="https://github.com/allenmonkey970/IntelexVsCuda/blob/master/results/loan%20prediction_speeds.png" width=70% height=70%>
 <img src="https://github.com/allenmonkey970/IntelexVsCuda/blob/master/results/student_performance_speeds.png" width=70% height=70%>
 
-### **1. Correlation Between Dataset Size and Speed**
-- **Small datasets (Student Performance, Diabetes) see execution times under ~1 second** for most models, except for MLP.  
-- **Mid-sized datasets (Loan Prediction, Cyberbullying, 20MB-3.6MB)** show **big variations based on the model used**. Some implementations **spike unpredictably** (e.g., MLP in Loan Prediction).  
-- **Large datasets (Wiretap, 7GB) take significantly longer execution times**:
-  - **XGBoost takes ~86,000-90,000ms**
-  - **Random Forest takes ~218,000-227,000ms**
-  - **AdaBoost takes ~619,000-623,000ms**
-  - **MLP (BareBones and Intelex) takes over 500,000ms, while CuPY slightly improves it to 284,000ms**  
-  - **LightGBM remains the fastest (1,028ms)**  
----
-### **2. Model Performance Trends**
-- **LightGBM is the fastest** across all datasets, with execution times mostly in the range of **milliseconds to a few seconds**.  
-- **XGBoost is consistently fast** but **slower than LightGBM**, particularly for larger datasets.  
-- **Logistic Regression performs decently on smaller datasets** but sees **huge execution time spikes** with datasets like Loan Prediction.  
-- **Random Forest is one of the slowest models**, especially for larger datasets, sometimes taking **hundreds of thousands of milliseconds**.  
-- **AdaBoost is also relatively slow**, though it outperforms Random Forest in some cases.  
-- **Multi-Layer Perceptron (MLP) is the slowest model in most cases**, especially on larger datasets like Loan Prediction, where it takes over **240,000ms (~4 minutes).**
+### Key Observations
 
----
+#### 1. Correlation Between Dataset Size and Speed
+- **Small datasets** (Student Performance, Diabetes): Most models execute in under 1 second (except MLP).
+- **Medium datasets** (Loan Prediction, Cyberbullying): Performance varies widely by model and implementation. Some models (MLP) are outliers in runtime.
+- **Large datasets** (Wiretap): Training can take several minutes, especially with Random Forest, AdaBoost, and MLP.
 
-### **3. Impact of Implementation Type (BareBones, CuPY)**
-- **CuPY and Intelex often improve performance over BareBones**, but the degree of improvement varies based on the **dataset and model**.
-- **For smaller datasets**, CuPY and Intelex show a significant improvement (e.g., in Student Performance and Diabetes datasets).
-- **For larger datasets, the improvements are inconsistent**:
-  - Example: **Loan Prediction (20MB)** – CuPY sometimes **worsens Logistic Regression performance** (37,521ms vs. 9,822ms for BareBones).  
-  - Example: **Cyberbullying dataset (3.66MB)** – AdaBoost with CuPY has an abnormally high runtime (91,000ms vs. ~3,322ms with BareBones and Intelex).  
-- **LightGBM is relatively stable across all implementations**, with only slight improvements from CuPY and Intelex.
-- CuPY sometimes **worsens execution time**, as seen with the smaller datasets.
+#### 2. Model Performance Trends
+- **LightGBM**: Fastest across all datasets.
+- **XGBoost**: Consistently fast, second only to LightGBM.
+- **Logistic Regression**: Efficient on small data, but can spike in runtime for certain medium datasets.
+- **Random Forest & AdaBoost**: Slow on large datasets; can be impractical for real-time use.
+- **MLP**: Slowest, especially on large/medium datasets.
+
+#### 3. Impact of Acceleration (Intelex, CuPy)
+- **Intelex & CuPy**: Both can provide major speed-ups, but the effect depends on the dataset and model.
+- **For small datasets**: Acceleration is noticeable, but even non-accelerated models are fast.
+- **For large datasets**: Acceleration is crucial for practical runtimes, but not all models benefit equally.
+- **Note**: Some models or array conversions can cause CuPy to worsen performance (e.g., Logistic Regression on Loan Prediction).
+
+#### 4. General Takeaways
+- **LightGBM is the most robust and efficient overall.**
+- **CuPy and Intelex accelerations are not universally beneficial**—always profile for your use case.
+- **Dataset size and model choice both impact execution time**, but model/implementation often matters more than raw size.
 ---
 
-### **Key Takeaways**
-1. **LightGBM is the most efficient model overall, with stable and fast execution times across all datasets.**
-2. **XGBoost is a solid second choice**, especially for larger datasets, but is noticeably slower than LightGBM.  
-3. **Random Forest and AdaBoost are significantly slower on large datasets**, making them less practical for high-volume data.  
-4. **MLP is the worst performer** in terms of speed, struggling the most with large datasets.  
-5. **CuPY and Intelex provide noticeable speed-ups,** but the effect is **not consistent across all datasets and models** because of array conversions.  
-6. **Dataset size strongly correlates with execution time,** but model choice has a bigger impact than size alone.  
-   - **For small datasets, even the slowest models run fast.**  
-   - **For mid-sized datasets, implementation choice (CuPY/Intelex) matters more.**  
-   - **For large datasets, only LightGBM remains fast, while MLP, Random Forest, and AdaBoost become impractically slow.**  
 ## Contributing
 Feel free to fork this repository, create a new branch, and submit a pull request with your changes. Please make sure to document it well.
 

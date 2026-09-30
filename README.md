@@ -65,7 +65,7 @@ The notebooks in `models/` are the original exploratory code. Published numbers 
 | Wiretap                | 7 GB     | 115 numeric   | Largest                  |
 | Loan Prediction        | 20 MB    | 12 categorical| Small                    |
 | Student Performance    | 41 KB    | 10 numeric    | Smallest                 |
-| Diabetes               | 636 KB   | 10 numeric    | Small                    |
+| Diabetes               | 3.81 MB  | 9 mixed       | Medium                   |
 | Cyberbullying Detection| 3.67 MB  | 7 text/cat.   | Medium, text-heavy       |
 
 ## Results
@@ -127,7 +127,7 @@ Feel free to fork this repository, create a new branch, and submit a pull reques
 This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
 
 ## Acknowledgments
-Diabetes Dataset (Version V1). (n.d.). [Dataset]. kaggle. https://www.kaggle.com/datasets/asinow/diabetes-dataset/data
+Mustafa, Mohammed. (n.d.). Diabetes Prediction Dataset [Dataset]. In Kaggle. https://www.kaggle.com/datasets/iammustafatz/diabetes-prediction-dataset
 
 Maree, A. (2025). Student Performance Prediction [Dataset]. In Kaggle (Version V2). Keggal. https://www.kaggle.com/datasets/amrmaree/student-performance-prediction
 

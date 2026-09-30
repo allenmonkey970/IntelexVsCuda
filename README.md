@@ -65,7 +65,7 @@ The notebooks in `models/` are the original exploratory code. Published numbers 
 | Wiretap                | 7 GB     | 115 numeric   | Largest                  |
 | Loan Prediction        | 20 MB    | 12 categorical| Small                    |
 | Student Performance    | 41 KB    | 10 numeric    | Smallest                 |
-| Diabetes               | 3.81 MB  | 9 mixed       | Medium                   |
+| Diabetes               | 3.81 MB  | 8 mixed       | Medium                   |
 | Cyberbullying Detection| 3.67 MB  | 7 text/cat.   | Medium, text-heavy       |
 
 ## Results

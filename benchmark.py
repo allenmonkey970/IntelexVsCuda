@@ -14,6 +14,13 @@ import os
 import subprocess
 import sys
 
+# Ensure oneDAL / TBB shared libraries are on PATH for scikit-learn-intelex.
+_dll_dir = os.path.join(os.path.expanduser("~"), "AppData", "Roaming", "Python", "Library", "bin")
+if os.path.isdir(_dll_dir) and _dll_dir not in os.environ.get("PATH", ""):
+    os.environ["PATH"] = _dll_dir + os.pathsep + os.environ.get("PATH", "")
+    if hasattr(os, "add_dll_directory"):
+        os.add_dll_directory(_dll_dir)
+
 IMPLEMENTATIONS = ["BareBones", "Intelex", "CuPY"]
 
 

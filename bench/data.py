@@ -66,8 +66,11 @@ def load_cyberbully_detection(data_dir):
 def load_diabetes(data_dir):
     data = pd.read_csv(os.path.join(data_dir, "diabetes_dataset.csv"))
     data = data.fillna(data.mean(numeric_only=True))
-    X = data.drop(columns="Outcome").astype(np.float32).to_numpy()
-    y = data["Outcome"].to_numpy(dtype=np.int32)
+    for col in ["gender", "smoking_history"]:
+        if col in data.columns:
+            data[col] = data[col].fillna("Unknown").astype("category").cat.codes
+    X = data.drop(columns="diabetes").astype(np.float32).to_numpy()
+    y = data["diabetes"].to_numpy(dtype=np.int32)
     return _split(X, y, test_size=0.2)
 
 

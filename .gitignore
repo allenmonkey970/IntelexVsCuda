@@ -1,2 +1,5 @@
 data/
 __pycache__/
+
+# Datasets (not tracked in git)
+models/*.csv

@@ -143,7 +143,7 @@ def legacy(path, out_path):
     for (dataset, algo), r in wide.iterrows():
         lines.append(f"| {dataset} | {algo} | {fmt_ms(r['BareBones'])} | {fmt_ms(r['Intelex'])} | {fmt_ms(r['CuPY'])} "
                      f"| {fmt_x(r['BareBones'] / r['Intelex'])} | {fmt_x(r['BareBones'] / r['CuPY'])} |")
-    with open(out_path, "w") as f:
+    with open(out_path, "w", encoding="utf-8") as f:
         f.write("\n".join(lines) + "\n")
     print(f"Wrote {out_path}")
 
@@ -161,7 +161,7 @@ def main():
 
     summary = summarise(pd.read_csv(args.input))
     summary.to_csv(os.path.join(args.out_dir, "summary.csv"), index=False)
-    with open(os.path.join(args.out_dir, "summary.md"), "w") as f:
+    with open(os.path.join(args.out_dir, "summary.md"), "w", encoding="utf-8") as f:
         f.write(markdown(summary))
     charts(summary, args.out_dir)
     print(f"Wrote {args.out_dir}/summary.csv, {args.out_dir}/summary.md and per-dataset charts")

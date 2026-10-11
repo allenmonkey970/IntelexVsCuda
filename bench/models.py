@@ -7,44 +7,31 @@ really use the sklearnex implementations.
 """
 RANDOM_STATE = 42
 
+# Only models that scikit-learn-intelex actually patches, so every Intelex row reflects a
+# real oneDAL acceleration (verified against sklearnex.get_patch_map()). LightGBM/XGBoost
+# (not sklearn) and AdaBoost/MLP (sklearn but unpatched) were removed for that reason.
 MODELS = [
-    "LightGBM classifier",
-    "XGBoost",
-    "Logistic Regression",
     "Random Forest Classifier",
-    "AdaBoost",
-    "Multi-layer Perceptron classifier",
+    "Logistic Regression",
+    "Extra Trees Classifier",
 ]
 
 # Models whose inputs are standardised (fitted on the training split) before fitting.
-NEEDS_SCALING = {"Logistic Regression", "Multi-layer Perceptron classifier"}
+NEEDS_SCALING = {"Logistic Regression"}
 
-# Models that can consume CuPy arrays directly and train on the GPU.
-# Everything else must copy CuPy data back to the host before fitting.
-GPU_NATIVE = {"XGBoost"}
+# Models that can consume CuPy arrays directly and train on the GPU. None of the patched
+# sklearn estimators have a GPU path, so under CuPY they run on the host after a round-trip.
+GPU_NATIVE = set()
 
 
 def build(name, implementation):
-    if name == "LightGBM classifier":
-        from lightgbm import LGBMClassifier
-        return LGBMClassifier(n_estimators=100, random_state=RANDOM_STATE, verbose=-1)
-    if name == "XGBoost":
-        from xgboost import XGBClassifier
-        # CPU for BareBones/Intelex so the comparison is CPU vs GPU, not GPU vs GPU.
-        device = "cuda" if implementation == "CuPY" else "cpu"
-        return XGBClassifier(n_estimators=100, tree_method="hist", device=device,
-                             random_state=RANDOM_STATE)
-    if name == "Logistic Regression":
-        from sklearn.linear_model import LogisticRegression
-        return LogisticRegression(max_iter=1000, random_state=RANDOM_STATE)
     if name == "Random Forest Classifier":
         from sklearn.ensemble import RandomForestClassifier
         return RandomForestClassifier(n_estimators=100, n_jobs=-1, random_state=RANDOM_STATE)
-    if name == "AdaBoost":
-        from sklearn.ensemble import AdaBoostClassifier
-        return AdaBoostClassifier(n_estimators=50, random_state=RANDOM_STATE)
-    if name == "Multi-layer Perceptron classifier":
-        from sklearn.neural_network import MLPClassifier
-        return MLPClassifier(hidden_layer_sizes=(50, 30), max_iter=1200, learning_rate="adaptive",
-                             early_stopping=True, random_state=RANDOM_STATE)
+    if name == "Logistic Regression":
+        from sklearn.linear_model import LogisticRegression
+        return LogisticRegression(max_iter=1000, random_state=RANDOM_STATE)
+    if name == "Extra Trees Classifier":
+        from sklearn.ensemble import ExtraTreesClassifier
+        return ExtraTreesClassifier(n_estimators=100, n_jobs=-1, random_state=RANDOM_STATE)
     raise ValueError(f"Unknown model: {name}")

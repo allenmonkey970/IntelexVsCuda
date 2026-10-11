@@ -24,7 +24,7 @@ NEEDS_SCALING = {"Logistic Regression"}
 GPU_NATIVE = set()
 
 
-def build(name, implementation):
+def build(name):
     if name == "Random Forest Classifier":
         from sklearn.ensemble import RandomForestClassifier
         return RandomForestClassifier(n_estimators=100, n_jobs=-1, random_state=RANDOM_STATE)

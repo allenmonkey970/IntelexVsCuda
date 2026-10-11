@@ -1,8 +1,6 @@
 """Summarise benchmark runs into tables and charts.
 
     python results.py                 # results/runs.csv  -> results/summary.{csv,md} + charts
-    python results.py --legacy        # PerformanceSpeeds.csv (old single-run, training-only
-                                      # numbers) -> results/legacy_summary.md
 
 Speedup = BareBones mean time / implementation mean time, so > 1 means faster than
 plain scikit-learn and < 1 means slower.
@@ -126,38 +124,11 @@ def charts(summary, out_dir):
         plt.close(fig)
 
 
-def legacy(path, out_path):
-    df = pd.read_csv(path).dropna(subset=["Speed(milliseconds)"])
-    wide = df.pivot_table(index=["Dataset", "Algorithm"], columns="Implementation",
-                          values="Speed(milliseconds)", sort=False)
-    lines = [
-        "# Legacy results (PerformanceSpeeds.csv)",
-        "",
-        "Single run per cell, training time only, no warm-up, no accuracy. In these runs the",
-        "Intelex patch was applied after the estimators were imported, so the Intelex column is",
-        "most likely unpatched scikit-learn. Kept for reference; superseded by results/summary.md.",
-        "",
-        "| Dataset | Model | BareBones ms | Intelex ms | CuPy ms | Intelex speedup | CuPy speedup |",
-        "|---|---|---|---|---|---|---|",
-    ]
-    for (dataset, algo), r in wide.iterrows():
-        lines.append(f"| {dataset} | {algo} | {fmt_ms(r['BareBones'])} | {fmt_ms(r['Intelex'])} | {fmt_ms(r['CuPY'])} "
-                     f"| {fmt_x(r['BareBones'] / r['Intelex'])} | {fmt_x(r['BareBones'] / r['CuPY'])} |")
-    with open(out_path, "w", encoding="utf-8") as f:
-        f.write("\n".join(lines) + "\n")
-    print(f"Wrote {out_path}")
-
-
 def main():
     parser = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
     parser.add_argument("--input", default=os.path.join("results", "runs.csv"))
     parser.add_argument("--out-dir", default="results")
-    parser.add_argument("--legacy", action="store_true", help="summarise PerformanceSpeeds.csv instead")
     args = parser.parse_args()
-
-    if args.legacy:
-        legacy("PerformanceSpeeds.csv", os.path.join(args.out_dir, "legacy_summary.md"))
-        return
 
     summary = summarise(pd.read_csv(args.input))
     summary.to_csv(os.path.join(args.out_dir, "summary.csv"), index=False)

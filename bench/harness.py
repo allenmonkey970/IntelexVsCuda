@@ -54,8 +54,8 @@ def _timed(fn, sync=None):
     return out, (time.perf_counter() - start) * 1000
 
 
-def _run_once(name, implementation, X_train, X_test, y_train, y_test, gpu):
-    model = models.build(name, implementation)
+def _run_once(name, X_train, X_test, y_train, y_test, gpu):
+    model = models.build(name)
     transfer_ms = 0.0
 
     if gpu is not None:
@@ -104,7 +104,7 @@ def run(dataset, implementation, split, model_names, repeats, warmup):
             Xte = scaler.transform(X_test)
 
         for i in range(warmup + repeats):
-            model, row = _run_once(name, implementation, Xtr, Xte, y_train, y_test, gpu)
+            model, row = _run_once(name, Xtr, Xte, y_train, y_test, gpu)
             status = "warm-up" if i < warmup else f"run {i - warmup + 1}/{repeats}"
             print(f"  {name:<34} {status:<9} fit {row['fit_ms']:>11.1f} ms  "
                   f"predict {row['predict_ms']:>9.1f} ms  transfer {row['transfer_ms']:>8.1f} ms  "

@@ -20,33 +20,31 @@ pip install numpy scipy pandas matplotlib scikit-learn scikit-learn-intelex xgbo
 
 **Run the benchmark, then build the tables and charts:**
 ```bash
-python benchmark.py --dataset all --impl all --repeats 5 --warmup 1   # appends to results/runs.csv
+python benchmark.py --dataset all --impl all --repeats 9 --warmup 1   # appends to results/runs.csv
 python results.py                                                     # writes results/summary.md, summary.csv and charts
 ```
-Use `--dataset diabetes`, `--impl Intelex` or `--models XGBoost AdaBoost` to run a subset.
+Use `--dataset diabetes`, `--impl Intelex` or `--models "Random Forest Classifier"` to run a subset.
 
 The notebooks in `models/` are the original exploratory code. Published numbers come from `benchmark.py`.
 
 ## Experiment Methodology
 
 1. **Preprocessing** (`bench/data.py`): each dataset has a single preprocessing pipeline, shared by all implementations. Feature selection, TF-IDF and scaling are fitted on the training split only. Splits are stratified with a fixed seed.
-2. **Models** (`bench/models.py`): one hyperparameter set per model, the same on every dataset and implementation:
-    - LightGBM
-    - XGBoost
-    - Logistic Regression
+2. **Models** (`bench/models.py`): the benchmark runs only the classifiers that scikit-learn-intelex actually patches, verified against `sklearnex.get_patch_map()`, so every Intelex measurement reflects a real oneDAL path. One hyperparameter set per model, the same on every dataset and implementation:
     - Random Forest
-    - AdaBoost
-    - Multi-Layer Perceptron (MLP)
+    - Logistic Regression
+    - Extra Trees
+   LightGBM and XGBoost (not scikit-learn) and AdaBoost and the MLP (scikit-learn, but not patched by sklearnex) were removed for that reason.
 3. **Implementation Variants**:
-    - **BareBones**: stock scikit-learn. XGBoost runs on the CPU (`device="cpu"`).
-    - **Intelex**: `patch_sklearn()` is applied in a fresh process *before* any estimator is imported. sklearnex only accelerates some estimators (e.g. Logistic Regression, Random Forest). The `Backend` column records which library actually ran each model, so an unpatched estimator is visible rather than silently counted as "Intelex". LightGBM and XGBoost are never affected by sklearnex.
-    - **CuPy**: data is moved to the GPU with CuPy. XGBoost trains on the GPU (`device="cuda"`) directly from CuPy arrays. The scikit-learn models and LightGBM cannot use CuPy arrays, so the data is copied back to the host and they train on the CPU. That round trip is measured as transfer time.
+    - **Intelex**: `patch_sklearn()` is applied in a fresh process *before* any estimator is imported, so each model runs on the oneDAL backend. The `Backend` column records which library actually ran each model (`sklearnex.*` when patched), so a fallback is visible rather than silently counted as "Intelex".
+    - **CuPy**: data is moved to the GPU with CuPy. None of these three estimators has a CuPy/GPU training path, so the data is copied back to the host and they train on the CPU with stock scikit-learn. That round trip is measured as transfer time, so this variant is effectively *stock scikit-learn + transfer overhead*.
+    - **BareBones** (stock scikit-learn, no transfer) is still available via `--impl BareBones` if an untaxed CPU baseline is wanted; the published run below compares Intelex against CuPy.
 4. **Measurement protocol** (`bench/harness.py`):
     - **Warm-up**: 1 discarded run per model, so first-call overhead is excluded. This covers library loading, JIT/kernel compilation and the CUDA context, which is also created before any timer starts.
-    - **Repeats**: 5 measured runs per model (configurable). Tables report **mean ± standard deviation**.
+    - **Repeats**: 9 measured runs per model (configurable). Tables report **mean ± standard deviation**.
     - **Separate timers**: **transfer** (host↔GPU copies), **fit** (training) and **predict** (inference on the test split). GPU work is synchronised before each timer stops.
     - **Quality**: **accuracy** and **macro F1** on the held-out test split, reported next to every time. A speed-up that comes with a drop in F1 is not counted as a win.
-    - **Speedup**: BareBones mean time ÷ implementation mean time (> 1 = faster), reported for fit time and for end-to-end time (transfer + fit + predict).
+    - **Speedup**: baseline mean time ÷ implementation mean time (> 1 = faster), reported for fit time and for end-to-end time (transfer + fit + predict).
     - Each implementation runs in its own Python process, so the Intelex patch cannot leak into the other runs.
 
 # How the experiments were conducted
@@ -54,8 +52,8 @@ The notebooks in `models/` are the original exploratory code. Published numbers 
 
 # Hardware used:
 
-- **CPU**: Intel Core i5 (12th Gen)  
-- **GPU**: NVIDIA GeForce GTX 1660 Super  
+- **CPU**: Intel Core i9-10900F (10 cores / 20 threads)  
+- **GPU**: NVIDIA GeForce RTX 4060 (8 GB)  
 - **Storage**: SSD  
 - **RAM**: 32 GB  
 
@@ -70,7 +68,39 @@ The notebooks in `models/` are the original exploratory code. Published numbers 
 
 ## Results
 
-> **Status:** the measured tables (mean ± sd, inference and transfer time, accuracy and macro F1 for every cell) are produced by `python results.py` into [`results/summary.md`](results/summary.md) after a run of `benchmark.py` on the hardware above. Paste its "Speedup factors" table here once the re-run is done.
+Full per-cell tables (mean ± sd for transfer, fit, predict and total time, plus accuracy and macro F1 and the backend that actually ran) are in [`results/summary.md`](results/summary.md), produced by `python results.py`. The run below is all five datasets × the three patched models × 9 repeats, with Active Wiretap at full scale (2.28M rows).
+
+### Intelex speedup vs CuPy (end-to-end: transfer + fit + predict)
+
+Each cell is **CuPy total ÷ Intelex total**, so > 1 means Intelex is faster. Because none of these models has a GPU training path, "CuPy" here is stock scikit-learn plus the host↔GPU round trip, so this reads as *oneDAL vs stock scikit-learn*.
+
+| Model | Wiretap (2.28M) | Cyberbullying (sparse) | Diabetes | Loan | Student |
+|---|---|---|---|---|---|
+| Random Forest | **3.8×** | 1.0× | **2.6×** | 0.94× | **36×** |
+| Logistic Regression | **6.6×** | 1.0× | **3.3×** | 0.62× | 0.71× |
+| Extra Trees | 1.2× | 1.0× | 0.60× | 1.2× | **26×** |
+
+**What the numbers show:**
+
+1. **oneDAL wins clearly on dense numeric data**, most of all for Logistic Regression and Random Forest: 6.6× and 3.8× on the full 2.28M-row Wiretap capture, and 3.3× / 2.6× on Diabetes.
+2. **On sparse TF-IDF input (Cyberbullying) Intelex gives no speedup** — sklearnex falls back to stock scikit-learn for sparse data, so all three models tie.
+3. **On tiny data (Student, ~700-row test split) the tree models are 26–36× faster** under Intelex, because oneDAL's fixed per-call overhead is far lower than stock scikit-learn's.
+4. **Extra Trees is inconsistent** — oneDAL is slower than stock on Diabetes (0.60×) and a wash elsewhere, so it is not a blanket win.
+5. **Accuracy and macro F1 match across implementations to ~4 decimals** on every cell, so the Intelex speedups come with no quality regression.
+
+### Charts
+
+End-to-end time per model (log scale, mean ± sd error bars), regenerated by `python results.py`:
+
+<img src="https://github.com/allenmonkey970/IntelexVsCuda/blob/master/results/active_Wiretap_speeds.png" width=70% height=70%>
+<img src="https://github.com/allenmonkey970/IntelexVsCuda/blob/master/results/cyberbully%20detection_speeds.png" width=70% height=70%>
+<img src="https://github.com/allenmonkey970/IntelexVsCuda/blob/master/results/diabetes_speeds.png" width=70% height=70%>
+<img src="https://github.com/allenmonkey970/IntelexVsCuda/blob/master/results/loan%20prediction_speeds.png" width=70% height=70%>
+<img src="https://github.com/allenmonkey970/IntelexVsCuda/blob/master/results/student_performance_speeds.png" width=70% height=70%>
+
+<details>
+<summary>Legacy experiment (superseded)</summary>
+
 > The numbers below come from the **original experiment** ([`PerformanceSpeeds.csv`](PerformanceSpeeds.csv), full table in [`results/legacy_summary.md`](results/legacy_summary.md)). They are single runs of training time only, with no warm-up. Read them with the caveats listed after the table.
 
 ### Legacy speedup factors vs BareBones (training time, single run)
@@ -106,16 +136,6 @@ Each cell is **Intelex × / CuPy ×**. Speedup = BareBones time ÷ variant time,
 6. **Dataset size dominates absolute time.** On Wiretap, training took 88 s (XGBoost) to 622 s (AdaBoost), with LightGBM at 1.0 s. On Diabetes and Student, every model trained in under 1.4 s.
 7. The Student Performance notebook has no LightGBM cell, so that CSV row cannot be reproduced from the repository.
 
-<details>
-<summary>Legacy charts (training time, single run)</summary>
-
-<img src="https://github.com/allenmonkey970/IntelexVsCuda/blob/master/results/active_Wiretap_speeds.png" width=70% height=70%>
-<img src="https://github.com/allenmonkey970/IntelexVsCuda/blob/master/results/cyberbully%20detection_speeds.png" width=70% height=70%>
-<img src="https://github.com/allenmonkey970/IntelexVsCuda/blob/master/results/diabetes_speeds.png" width=70% height=70%>
-<img src="https://github.com/allenmonkey970/IntelexVsCuda/blob/master/results/loan%20prediction_speeds.png" width=70% height=70%>
-<img src="https://github.com/allenmonkey970/IntelexVsCuda/blob/master/results/student_performance_speeds.png" width=70% height=70%>
-
-`python results.py` overwrites these files with end-to-end time charts (log scale, mean ± sd error bars).
 </details>
 
 ---

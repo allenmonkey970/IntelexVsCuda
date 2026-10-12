@@ -10,39 +10,50 @@ This project benchmarks and compares the performance of various machine learning
 
 ## Setup
 
-**Install the required dependencies:**
+**Install the required dependencies** (use the CuPy wheel matching your CUDA version, e.g. `cupy-cuda12x`):
 ```bash
-pip install scikit-learn scikit-learn-intelex cupy-cuda xgboost
+pip install numpy scipy pandas matplotlib scikit-learn scikit-learn-intelex xgboost lightgbm cupy-cuda12x
 ```
-If you encounter missing dependencies, also install:
+
+**Put the dataset CSVs in `data/`** (git-ignored; see [Acknowledgments](#acknowledgments) for sources):
+`Active_Wiretap_dataset.csv`, `Active_Wiretap_labels.csv`, `final_hateXplain.csv`, `diabetes_dataset.csv`, `Loan Prediction.csv`, `student_performance_dataset.csv`.
+
+**Run the benchmark, then build the tables and charts:**
 ```bash
-pip install pandas matplotlib numpy
+python benchmark.py --dataset all --impl all --repeats 9 --warmup 1   # appends to results/runs.csv
+python results.py                                                     # writes results/summary.md, summary.csv and charts
 ```
-> _Note: Some datasets or algorithms may require additional libraries (e.g., warnings for suppression)._
+Use `--dataset diabetes`, `--impl Intelex` or `--models "Random Forest Classifier"` to run a subset.
+
+The notebooks in `models/` are the original exploratory code. Published numbers come from `benchmark.py`.
 
 ## Experiment Methodology
 
-1. **Preprocessing**: Each dataset was cleaned and preprocessed to fit the requirements of the algorithms and libraries.
-2. **Model Selection**: The following ML models were tested:
-    - LightGBM
-    - XGBoost
-    - Logistic Regression
+1. **Preprocessing** (`bench/data.py`): each dataset has a single preprocessing pipeline, shared by all implementations. Feature selection, TF-IDF and scaling are fitted on the training split only. Splits are stratified with a fixed seed.
+2. **Models** (`bench/models.py`): the benchmark runs only the classifiers that scikit-learn-intelex actually patches, verified against `sklearnex.get_patch_map()`, so every Intelex measurement reflects a real oneDAL path. One hyperparameter set per model, the same on every dataset and implementation:
     - Random Forest
-    - AdaBoost
-    - Multi-Layer Perceptron (MLP)
+    - Logistic Regression
+    - Extra Trees
+   LightGBM and XGBoost (not scikit-learn) and AdaBoost and the MLP (scikit-learn, but not patched by sklearnex) were removed for that reason.
 3. **Implementation Variants**:
-    - **BareBones**: Standard scikit-learn implementation.
-    - **Intelex**: scikit-learn accelerated with scikit-learn-intelex.
-    - **CuPy**: Data arrays and supported models accelerated with CuPy (where possible).
-4. **Benchmarking**: Each model was run on all datasets, measuring wall-clock training time.
+    - **Intelex**: `patch_sklearn()` is applied in a fresh process *before* any estimator is imported, so each model runs on the oneDAL backend. The `Backend` column records which library actually ran each model (`sklearnex.*` when patched), so a fallback is visible rather than silently counted as "Intelex".
+    - **CuPy**: data is moved to the GPU with CuPy. None of these three estimators has a CuPy/GPU training path, so the data is copied back to the host and they train on the CPU with stock scikit-learn. That round trip is measured as transfer time, so this variant is effectively *stock scikit-learn + transfer overhead*.
+    - **BareBones** (stock scikit-learn, no transfer) is still available via `--impl BareBones` if an untaxed CPU baseline is wanted; the published run below compares Intelex against CuPy.
+4. **Measurement protocol** (`bench/harness.py`):
+    - **Warm-up**: 1 discarded run per model, so first-call overhead is excluded. This covers library loading, JIT/kernel compilation and the CUDA context, which is also created before any timer starts.
+    - **Repeats**: 9 measured runs per model (configurable). Tables report **mean ± standard deviation**.
+    - **Separate timers**: **transfer** (host↔GPU copies), **fit** (training) and **predict** (inference on the test split). GPU work is synchronised before each timer stops.
+    - **Quality**: **accuracy** and **macro F1** on the held-out test split, reported next to every time. A speed-up that comes with a drop in F1 is not counted as a win.
+    - **Speedup**: baseline mean time ÷ implementation mean time (> 1 = faster), reported for fit time and for end-to-end time (transfer + fit + predict).
+    - Each implementation runs in its own Python process, so the Intelex patch cannot leak into the other runs.
 
 # How the experiments were conducted
-<img src="https://github.com/allenmonkey970/IntelexVsCuda/blob/master/results/diagram.png" width=100% height=140%>
+<img src="results/diagram.png" width=100% height=140%>
 
 # Hardware used:
 
-- **CPU**: Intel Core i5 (12th Gen)  
-- **GPU**: NVIDIA GeForce GTX 1660 Super  
+- **CPU**: Intel Core i9-10900F (10 cores / 20 threads)  
+- **GPU**: NVIDIA GeForce RTX 4060 (8 GB)  
 - **Storage**: SSD  
 - **RAM**: 32 GB  
 
@@ -52,40 +63,41 @@ pip install pandas matplotlib numpy
 | Wiretap                | 7 GB     | 115 numeric   | Largest                  |
 | Loan Prediction        | 20 MB    | 12 categorical| Small                    |
 | Student Performance    | 41 KB    | 10 numeric    | Smallest                 |
-| Diabetes               | 636 KB   | 10 numeric    | Small                    |
+| Diabetes               | 3.81 MB  | 8 mixed       | Medium                   |
 | Cyberbullying Detection| 3.67 MB  | 7 text/cat.   | Medium, text-heavy       |
 
 ## Results
-<img src="https://github.com/allenmonkey970/IntelexVsCuda/blob/master/results/active_Wiretap_speeds.png" width=70% height=70%>
-<img src="https://github.com/allenmonkey970/IntelexVsCuda/blob/master/results/cyberbully%20detection_speeds.png" width=70% height=70%>
-<img src="https://github.com/allenmonkey970/IntelexVsCuda/blob/master/results/diabetes_speeds.png" width=70% height=70%>
-<img src="https://github.com/allenmonkey970/IntelexVsCuda/blob/master/results/loan%20prediction_speeds.png" width=70% height=70%>
-<img src="https://github.com/allenmonkey970/IntelexVsCuda/blob/master/results/student_performance_speeds.png" width=70% height=70%>
 
-### Key Observations
+Full per-cell tables (mean ± sd for transfer, fit, predict and total time, plus accuracy and macro F1 and the backend that actually ran) are in [`results/summary.md`](results/summary.md), produced by `python results.py`. The run below is all five datasets × the three patched models × 9 repeats, with Active Wiretap at full scale (2.28M rows).
 
-#### 1. Correlation Between Dataset Size and Speed
-- **Small datasets** (Student Performance, Diabetes): Most models execute in under 1 second (except MLP).
-- **Medium datasets** (Loan Prediction, Cyberbullying): Performance varies widely by model and implementation. Some models (MLP) are outliers in runtime.
-- **Large datasets** (Wiretap): Training can take several minutes, especially with Random Forest, AdaBoost, and MLP.
+### Intelex speedup vs CuPy (end-to-end: transfer + fit + predict)
 
-#### 2. Model Performance Trends
-- **LightGBM**: Fastest across all datasets.
-- **XGBoost**: Consistently fast, second only to LightGBM.
-- **Logistic Regression**: Efficient on small data, but can spike in runtime for certain medium datasets.
-- **Random Forest & AdaBoost**: Slow on large datasets; can be impractical for real-time use.
-- **MLP**: Slowest, especially on large/medium datasets.
+Each cell is **CuPy total ÷ Intelex total**, so > 1 means Intelex is faster. Because none of these models has a GPU training path, "CuPy" here is stock scikit-learn plus the host↔GPU round trip, so this reads as *oneDAL vs stock scikit-learn*.
 
-#### 3. Impact of Acceleration (Intelex, CuPy)
-- **Intelex & CuPy**: Both can provide major speed-ups, but the effect depends on the dataset and model.
-- **For small datasets**: Acceleration is noticeable, but even non-accelerated models are fast.
-- **For large datasets**: Acceleration is crucial for practical runtimes, but not all models benefit equally.
-- **Note**: Some models or array conversions can cause CuPy to worsen performance (e.g., Logistic Regression on Loan Prediction).
+| Model | Wiretap (2.28M) | Cyberbullying (sparse) | Diabetes | Loan | Student |
+|---|---|---|---|---|---|
+| Random Forest | **3.8×** | 1.0× | **2.6×** | 0.94× | **36×** |
+| Logistic Regression | **6.6×** | 1.0× | **3.3×** | 0.62× | 0.71× |
+| Extra Trees | 1.2× | 1.0× | 0.60× | 1.2× | **26×** |
 
-#### 4. General Takeaways
-- **LightGBM is the most robust and efficient overall.**
-- **CuPy and Intelex accelerations are not universally beneficial**—always profile for your use case.
-- **Dataset size and model choice both impact execution time**, but model/implementation often matters more than raw size.
+**What the numbers show:**
+
+1. **oneDAL wins clearly on dense numeric data**, most of all for Logistic Regression and Random Forest: 6.6× and 3.8× on the full 2.28M-row Wiretap capture, and 3.3× / 2.6× on Diabetes.
+2. **On sparse TF-IDF input (Cyberbullying) Intelex gives no speedup** — sklearnex falls back to stock scikit-learn for sparse data, so all three models tie.
+3. **On tiny data (Student, ~700-row test split) the tree models are 26–36× faster** under Intelex, because oneDAL's fixed per-call overhead is far lower than stock scikit-learn's.
+4. **Extra Trees is inconsistent** — oneDAL is slower than stock on Diabetes (0.60×) and a wash elsewhere, so it is not a blanket win.
+5. **Accuracy and macro F1 match across implementations to ~4 decimals** on every cell, so the Intelex speedups come with no quality regression.
+
+### Charts
+
+End-to-end time per model (log scale, mean ± sd error bars), regenerated by `python results.py`:
+
+<img src="results/active_Wiretap_speeds.png" width=70% height=70%>
+<img src="results/cyberbully%20detection_speeds.png" width=70% height=70%>
+<img src="results/diabetes_speeds.png" width=70% height=70%>
+<img src="results/loan%20prediction_speeds.png" width=70% height=70%>
+<img src="results/student_performance_speeds.png" width=70% height=70%>
+
 ---
 
 ## Contributing
@@ -95,7 +107,7 @@ Feel free to fork this repository, create a new branch, and submit a pull reques
 This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
 
 ## Acknowledgments
-Diabetes Dataset (Version V1). (n.d.). [Dataset]. kaggle. https://www.kaggle.com/datasets/asinow/diabetes-dataset/data
+Mustafa, Mohammed. (n.d.). Diabetes Prediction Dataset [Dataset]. In Kaggle. https://www.kaggle.com/datasets/iammustafatz/diabetes-prediction-dataset
 
 Maree, A. (2025). Student Performance Prediction [Dataset]. In Kaggle (Version V2). Keggal. https://www.kaggle.com/datasets/amrmaree/student-performance-prediction
 
